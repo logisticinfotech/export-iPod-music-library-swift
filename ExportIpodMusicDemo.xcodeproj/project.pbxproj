@@ -11,6 +11,7 @@
 		32FC216A1BBC4394003DAF52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32FC21691BBC4394003DAF52 /* LaunchScreen.storyboard */; };
 		32FC216C1BBC43A1003DAF52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FC216B1BBC43A1003DAF52 /* AppDelegate.swift */; };
 		C960B36D22460A4D00E9B2ED /* TestMusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C960B36C22460A4D00E9B2ED /* TestMusic.m4a */; };
+		C96D46892248EF1A0004B392 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D46882248EF1A0004B392 /* MediaCell.swift */; };
 		C9F5334F18273BB20001263B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F5334D18273BB20001263B /* Main_iPhone.storyboard */; };
 		C9F5335218273BB20001263B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F5335018273BB20001263B /* Main_iPad.storyboard */; };
 		C9F5335718273BB20001263B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F5335618273BB20001263B /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		32FC21691BBC4394003DAF52 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32FC216B1BBC43A1003DAF52 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C960B36C22460A4D00E9B2ED /* TestMusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestMusic.m4a; sourceTree = "<group>"; };
+		C96D46882248EF1A0004B392 /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 		C9F5333818273BB20001263B /* ExportIpodMusicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExportIpodMusicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F5334318273BB20001263B /* ExportIpodMusicDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExportIpodMusicDemo-Info.plist"; sourceTree = "<group>"; };
 		C9F5334E18273BB20001263B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				C9F5335618273BB20001263B /* Assets.xcassets */,
 				32FC21691BBC4394003DAF52 /* LaunchScreen.storyboard */,
 				C9F5334318273BB20001263B /* ExportIpodMusicDemo-Info.plist */,
+				C96D46882248EF1A0004B392 /* MediaCell.swift */,
 			);
 			path = ExportIpodMusicDemo;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32FC216C1BBC43A1003DAF52 /* AppDelegate.swift in Sources */,
+				C96D46892248EF1A0004B392 /* MediaCell.swift in Sources */,
 				32488D1E199C592F006A9694 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

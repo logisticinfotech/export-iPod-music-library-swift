@@ -3,6 +3,7 @@
 import UIKit
 import MediaPlayer
 import AVFoundation
+
 func delay(_ delay:Double, closure:@escaping ()->()) {
     let when = DispatchTime.now() + delay
     DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
@@ -57,29 +58,35 @@ class ViewController: UIViewController {
     
     //    let urlString = "https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/AudioPreview18/v4/9c/db/54/9cdb54b3-5c52-3063-b1ad-abe42955edb5/mzaf_520282131402737225.plus.aac.p.m4a"
     
+    @IBOutlet weak var tableView: UITableView!
     var audioPlayer : AVAudioPlayer?
     var arrFetchedMedia = NSMutableArray()
+    
+    var arrFetchedDirMedia = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        let url = URL(fileURLWithPath: "file:///var/mobile/Containers/Data/Application/52AE6115-96F0-4D20-9F98-7D21478D6CFE/Documents/custom.m4a")
-        //
-        //                do {
-        //                    self.audioPlayer = try AVAudioPlayer(contentsOf:  url)
-        //                    self.audioPlayer?.prepareToPlay()
-        //                    self.audioPlayer?.play()
-        //                } catch {
-        //                    print("Error:", error.localizedDescription)
-        //                }
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.title = "LI Export iPod Music"
+//        if((UserDefaults.standard.array(forKey: "MediaArray")) != nil){
+            if let unarchivedObject = UserDefaults.standard.object(forKey: "MediaArray") as? Data {
+                
+                self.arrFetchedMedia = (NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject as Data) as? NSMutableArray)!
+            }
+//        }
+        self.tableView.reloadData()
+        fetchImportedBeat()
         
     }
-    
-    @IBAction func doGo (_ sender: Any!) {
+    @IBAction func onClickInsert(_ sender: Any) {
         self.presentPicker(sender)
     }
     
+    @IBAction func doGo (_ sender: Any!) {
+    }
+    
     @IBAction func playMusic(_ sender: Any) {
-        self.playmedia()
+//        self.playmedia(fileName: "")
         
     }
     func presentPicker (_ sender: Any) {
@@ -99,11 +106,36 @@ class ViewController: UIViewController {
         }
     }
     
-    func playmedia() {
+    
+    var documentURL = { () -> URL in
+        let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        return documentURL
+    }
+    
+    func fetchImportedBeat(){
+        
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+        let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        var theItems = [String]()
+        
+        if let dirPath = paths.first
+        {
+            let mediaURL = URL(fileURLWithPath: dirPath)
+            
+            do {
+                theItems = try FileManager.default.contentsOfDirectory(atPath: mediaURL.path)
+                arrFetchedDirMedia = theItems
+                print(theItems)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    func playmedia(fileName:URL) {
         do {
             //7 - Insert the song from our Bundle into our AVAudioPlayer
-            let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            let fileName = (arrFetchedMedia[0] as! NSMutableDictionary).value(forKey: "storagePath") as! URL
+//            let fileName = (arrFetchedMedia[0] as! NSMutableDictionary).value(forKey: "storagePath") as! URL
             audioPlayer = try AVAudioPlayer(contentsOf: fileName)
             //8 - Prepare the song to be played
             audioPlayer!.prepareToPlay()
@@ -128,12 +160,33 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController :UITableViewDelegate,UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrFetchedMedia.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MediaCell
+        cell.lblMediaName.text = (((arrFetchedMedia[indexPath.row] as! NSMutableDictionary).value(forKey: "title")!) as! String)
+        cell.lblSizeName.text = (((arrFetchedMedia[indexPath.row] as! NSMutableDictionary).value(forKey: "size")!) as! String)
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.playmedia(fileName: ((arrFetchedMedia.object(at: indexPath.row) as! NSMutableDictionary) .value(forKey: "storagePath") as! URL))
+    }
+}
+
 extension ViewController : MPMediaPickerControllerDelegate {
     // must implement these, as there is no automatic dismissal
     
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         
-        arrFetchedMedia.removeAllObjects()
+//        arrFetchedMedia.removeAllObjects()
+        let arrMedia = NSMutableArray()
         
         for tempItem in mediaItemCollection.items {
             
@@ -207,9 +260,7 @@ extension ViewController : MPMediaPickerControllerDelegate {
                     //                    exportSession?.outputFileType = AVFileType.m4a
 //                    exportSession?.outputFileType = AVFileType(rawValue: fileType! as String) ;
                     exportSession?.outputFileType = AVFileType.m4a ;
-                    
-                    let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                    
+                   
                     var fileName = item.value(forProperty: MPMediaItemPropertyTitle) as! String
                     var fileNameArr = NSArray()
                     fileNameArr = fileName.components(separatedBy: " ") as NSArray
@@ -217,9 +268,7 @@ extension ViewController : MPMediaPickerControllerDelegate {
                     fileName = fileName.replacingOccurrences(of: ".", with: "")
                     
                     print("fileName -> \(fileName)")
-                    //                    let outputURL = documentURL.appendingPathComponent("\(fileName).m4a")
-                    let outputURL = documentURL.appendingPathComponent("test.m4a")
-                    //                    let outputURL = documentURL.appendingPathComponent(fileName).appendingPathExtension(ex!)
+                    let outputURL = documentURL().appendingPathComponent("\(fileName).m4a")
                     print("OutURL->\(outputURL)")
                     print("fileSizeString->\(item.fileSizeString)")
                     print("fileSize->\(item.fileSize)")
@@ -228,9 +277,10 @@ extension ViewController : MPMediaPickerControllerDelegate {
                     dict.setValue(ex, forKey: "extention")
                     dict.setValue(fileName, forKey: "title")
                     dict.setValue(outputURL, forKey: "storagePath")
-                    dict.setValue(item.fileSize, forKey: "size")
+                    dict.setValue(item.fileSizeString, forKey: "size")
                     dict.setValue(item.isCloudItem, forKey: "isCloudItem")
-                    arrFetchedMedia.add(dict)
+                    
+                    arrMedia.add(dict)
                     
                     //Delete Existing file
                     do {
@@ -244,7 +294,18 @@ extension ViewController : MPMediaPickerControllerDelegate {
                         
                         if exportSession!.status == AVAssetExportSession.Status.completed  {
                             print("Export Successfull")
-                            print("arr => \(self.arrFetchedMedia)")
+                            self.fetchImportedBeat()
+                            let arrArchive = NSKeyedArchiver.archivedData(withRootObject: arrMedia) as NSData
+
+                            let defaults = UserDefaults.standard
+                            
+                            defaults.set(arrArchive, forKey: "MediaArray")
+                            print("arr => \(arrMedia)")
+                            self.arrFetchedMedia = arrMedia
+                            DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            }
+                            
                         } else {
                             print("Export failed")
                             print(exportSession!.error as Any)
@@ -260,8 +321,8 @@ extension ViewController : MPMediaPickerControllerDelegate {
         print("cancel")
         self.dismiss(animated:true)
     }
-    
 }
+
 extension MPMediaItem{
     
     // Value is in Bytes

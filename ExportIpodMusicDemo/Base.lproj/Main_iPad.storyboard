@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14092" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dpv-ti-Uhf">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14081.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,35 +13,99 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ch29p955mediaPicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ExportIpodMusicDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kb0-9X-RRV">
-                                <rect key="frame" x="0.0" y="20" width="768" height="44"/>
-                                <items>
-                                    <barButtonItem title="Present Picker" id="gmr-AG-h8z">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fPI-fO-A3w">
+                                <rect key="frame" x="0.0" y="70" width="768" height="904"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="63" id="NX8-CU-1jB" customClass="MediaCell" customModule="ExportIpodMusicDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="768" height="63"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NX8-CU-1jB" id="Mif-nC-8YM">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="62.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiH-e1-wcU">
+                                                    <rect key="frame" x="16" y="8" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIA-OF-PfT">
+                                                    <rect key="frame" x="16" y="33" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CIA-OF-PfT" firstAttribute="top" secondItem="HiH-e1-wcU" secondAttribute="bottom" constant="4" id="6UG-dG-Gyn"/>
+                                                <constraint firstItem="HiH-e1-wcU" firstAttribute="leading" secondItem="Mif-nC-8YM" secondAttribute="leading" constant="16" id="Gl3-Sp-K27"/>
+                                                <constraint firstItem="HiH-e1-wcU" firstAttribute="top" secondItem="Mif-nC-8YM" secondAttribute="top" constant="8" id="IEz-Oc-avH"/>
+                                                <constraint firstItem="CIA-OF-PfT" firstAttribute="leading" secondItem="Mif-nC-8YM" secondAttribute="leading" constant="16" id="XjA-m9-evG"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HiH-e1-wcU" secondAttribute="trailing" constant="20" symbolic="YES" id="jYF-EA-2vu"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CIA-OF-PfT" secondAttribute="trailing" constant="20" symbolic="YES" id="sQl-eL-J1e"/>
+                                                <constraint firstItem="CIA-OF-PfT" firstAttribute="top" secondItem="HiH-e1-wcU" secondAttribute="bottom" constant="4" id="sup-4P-4EC"/>
+                                                <constraint firstAttribute="bottom" secondItem="CIA-OF-PfT" secondAttribute="bottom" constant="8.5" id="usE-04-Drd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                         <connections>
-                                            <action selector="doGo:" destination="BYZ-38-t0r" id="qNh-78-bhJ"/>
+                                            <outlet property="lblMediaName" destination="HiH-e1-wcU" id="YVd-QX-q3Y"/>
+                                            <outlet property="lblSizeName" destination="CIA-OF-PfT" id="l34-nl-4A2"/>
                                         </connections>
-                                    </barButtonItem>
-                                </items>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="nRM-1X-MkZ"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="OnP-dZ-f3N"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="mar-gG-Kqi"/>
                                 </connections>
-                            </toolbar>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Kb0-9X-RRV" firstAttribute="top" secondItem="55a-9r-Ehn" secondAttribute="top" id="0Pf-et-p1A"/>
-                            <constraint firstItem="55a-9r-Ehn" firstAttribute="trailing" secondItem="Kb0-9X-RRV" secondAttribute="trailing" id="aX0-Vk-awP"/>
-                            <constraint firstItem="Kb0-9X-RRV" firstAttribute="leading" secondItem="55a-9r-Ehn" secondAttribute="leading" id="czv-by-LmO"/>
+                            <constraint firstItem="fPI-fO-A3w" firstAttribute="top" secondItem="55a-9r-Ehn" secondAttribute="top" id="TV8-aU-dbx"/>
+                            <constraint firstItem="fPI-fO-A3w" firstAttribute="leading" secondItem="55a-9r-Ehn" secondAttribute="leading" id="YDU-OU-cSR"/>
+                            <constraint firstItem="55a-9r-Ehn" firstAttribute="trailing" secondItem="fPI-fO-A3w" secondAttribute="trailing" id="bl3-op-nfY"/>
+                            <constraint firstItem="55a-9r-Ehn" firstAttribute="bottom" secondItem="fPI-fO-A3w" secondAttribute="bottom" id="w1f-oC-qja"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="55a-9r-Ehn"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="8AS-Xs-9tP">
+                        <barButtonItem key="rightBarButtonItem" title="Insert" id="RUh-L9-8r7">
+                            <connections>
+                                <action selector="onClickInsert:" destination="BYZ-38-t0r" id="afU-y7-6YS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="fPI-fO-A3w" id="Q5o-eU-eer"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="867" y="110"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="VgL-oy-Feb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dpv-ti-Uhf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wf2-TL-fM4">
+                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="mJk-pm-cgC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nbD-At-sHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="20.3125" y="16.9921875"/>
         </scene>
